@@ -4,13 +4,14 @@
 
 ## Setup
 
-Get [poetry](https://python-poetry.org/)
+1. Get [poetry](https://python-poetry.org/)
 
+2. Install dependencies
 ```
 poetry install
 ```
 
-Create an `.env` file with your adventofcode.com session token.
+3. Create an `.env` file with your adventofcode.com session token.
 
 ```.env
 AOC_SESSION="yoursessiontoken"
