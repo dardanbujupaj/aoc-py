@@ -26,7 +26,7 @@ def part2():
                 enabled = True
             case ("don't()", _, _):
                 enabled = False
-            case (m, a, b):
+            case (_, a, b):
                 if enabled:
                     result += int(a) * int(b)
 
