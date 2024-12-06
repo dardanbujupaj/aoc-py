@@ -22,7 +22,6 @@ def sort_fn(a: str, b: str):
 
 
 def part1():
-
     count = 0
 
     for update in updates:
