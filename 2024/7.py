@@ -36,13 +36,6 @@ def part1():
     print(count)
 
 
-@dataclass
-class Node:
-    index: int
-    operator: Literal["+", "*", "||"]
-    value: int
-
-
 def part2():
     equations = parse_input(input)
 

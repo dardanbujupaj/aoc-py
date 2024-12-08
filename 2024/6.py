@@ -1,4 +1,5 @@
 from api import get_input
+from utils import grid_contains
 
 input = get_input(2024, 6)
 
@@ -28,15 +29,6 @@ def parse_input(input: str):
 
 # directions in right turn order
 DIRECTIONS = [(0, -1), (1, 0), (0, 1), (-1, 0)]
-
-
-def grid_contains(grid: list[list[str]], position: tuple[int, int]):
-    return (
-        position[0] >= 0
-        and position[0] < len(grid[0])
-        and position[1] >= 0
-        and position[1] < len(grid)
-    )
 
 
 def is_obstacle(grid: list[list[str]], position: tuple[int, int]):
