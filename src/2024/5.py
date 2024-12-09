@@ -6,7 +6,9 @@ input = get_input(2024, 5)
 
 def parse_input(input: str):
     rules_str, updates_str = input.split("\n\n")
-    return set(rules_str.splitlines()), [l.split(",") for l in updates_str.splitlines()]
+    return set(rules_str.splitlines()), [
+        line.split(",") for line in updates_str.splitlines()
+    ]
 
 
 rules, updates = parse_input(input)

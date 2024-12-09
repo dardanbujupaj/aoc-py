@@ -6,7 +6,9 @@ input = get_input(2024, 1)
 
 
 def parse_input(input: str):
-    return np.array([[int(n) for n in split(r"\s+", l)] for l in input.splitlines()])
+    return np.array(
+        [[int(n) for n in split(r"\s+", line)] for line in input.splitlines()]
+    )
 
 
 def part1():
@@ -19,5 +21,7 @@ def part2():
     left = numbers[:, 0]
     right = numbers[:, 1]
 
-    similarities = [l * np.argwhere(right == l).size for l in left]
+    similarities = [
+        current_left * np.argwhere(right == current_left).size for current_left in left
+    ]
     print(sum(similarities))

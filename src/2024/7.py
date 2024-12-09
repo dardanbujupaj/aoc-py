@@ -1,6 +1,4 @@
-from dataclasses import dataclass
 from api import get_input
-from typing import Literal
 
 input = get_input(2024, 7)
 

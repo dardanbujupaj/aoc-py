@@ -44,7 +44,7 @@ def part1():
                             raise Exception()
 
                     count += 1
-                except:
+                except Exception:
                     pass
 
     print(count)
