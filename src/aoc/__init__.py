@@ -30,9 +30,10 @@ def get_module():
         return import_module(f"{year}.{day}")
     except ModuleNotFoundError:
         print("Bootstrap solution")
-        file = Path(f"{year}/{day}.py")
+        file = Path(f"src/{year}/{day}.py")
         file.parent.mkdir(parents=True, exist_ok=True)
-        file.write_text(get_template(year, day))
+        res = file.write_text(get_template(year, day))
+        print(res)
         return import_module(f"{year}.{day}")
 
 
