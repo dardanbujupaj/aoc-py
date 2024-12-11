@@ -1,4 +1,3 @@
-
 from api import get_input
 from utils import grid_contains
 
@@ -13,8 +12,10 @@ example_input = """89010123
 01329801
 10456732"""
 
+
 def parse_input(input: str):
     return [[int(character) for character in line] for line in input.splitlines()]
+
 
 def part1():
     grid = parse_input(input)
@@ -45,13 +46,17 @@ def part1():
                 if not grid_contains(grid, (dx, dy)):
                     continue
 
-                if (dx, dy) not in visited and (dx, dy) not in queue and grid[dy][dx] == cell + 1:
+                if (
+                    (dx, dy) not in visited
+                    and (dx, dy) not in queue
+                    and grid[dy][dx] == cell + 1
+                ):
                     queue.append((dx, dy))
-            
+
         total += count
-    
+
     print(total)
-                
+
 
 def part2():
     grid = parse_input(input)
@@ -81,7 +86,7 @@ def part2():
 
                 if grid[dy][dx] == cell + 1:
                     queue.append((dx, dy))
-            
+
         total += count
-    
+
     print(total)
