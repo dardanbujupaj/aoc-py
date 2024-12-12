@@ -54,7 +54,8 @@ def part1():
     print(total)
 
 
-fence_offsets = [
+# fences orientations in clockwise order to distinguish between sides
+fence_orientations = [
     ((1, 0), (1, 1)),
     ((0, 1), (0, 0)),
     ((0, 1), (1, 1)),
@@ -130,7 +131,7 @@ def part2():
                         or not 0 <= dy < len(grid)
                         or grid[dy][dx] != cell
                     ):
-                        fence_offset = fence_offsets[direction_index]
+                        fence_offset = fence_orientations[direction_index]
                         fences.append(
                             (
                                 (fence_offset[0][0] + dx, fence_offset[0][1] + dy),
