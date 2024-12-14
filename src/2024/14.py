@@ -1,5 +1,4 @@
 from functools import reduce
-import math
 import re
 
 from matplotlib import animation, pyplot as plt
