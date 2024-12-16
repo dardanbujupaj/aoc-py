@@ -32,8 +32,8 @@ def get_module():
         print("Bootstrap solution")
         file = Path(f"src/{year}/{day}.py")
         file.parent.mkdir(parents=True, exist_ok=True)
-        res = file.write_text(get_template(year, day))
-        print(res)
+        file.write_text(get_template(year, day))
+
         return import_module(f"{year}.{day}")
 
 
