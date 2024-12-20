@@ -4,31 +4,6 @@ from api import get_input
 input = get_input(2024, 20)
 
 
-def get_distances(cells: set[tuple[int, int]], start: tuple[int, int]):
-    queue: deque[tuple[int, tuple[int, int]]] = deque()
-    queue.append((0, start))
-
-    distances: dict[tuple[int, int], int] = {}
-
-    while queue:
-        distance, cell = queue.popleft()
-
-        if cell in distances:
-            continue
-
-        distances[cell] = distance
-
-        for direction in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
-            neighbor = (cell[0] + direction[0], cell[1] + direction[1])
-
-            if neighbor not in cells:
-                continue
-
-            queue.append((distance + 1, neighbor))
-
-    return distances
-
-
 def parse_input(input: str):
     cells: set[tuple[int, int]] = set()
     start: tuple[int, int] = (0, 0)
@@ -46,6 +21,33 @@ def parse_input(input: str):
             cells.add((x, y))
 
     return cells, start, end
+
+
+def part1():
+    print("part1")
+
+    cells, start, end = parse_input(input)
+
+    cheats = find_cheats(cells, start, end)
+
+    cheat_count = sum(cheats.values())
+
+    print(cheat_count)
+
+
+def part2():
+    print("part2")
+
+    cells, start, end = parse_input(input)
+
+    cheats = find_cheats(cells, start, end, 20, threshold=100)
+
+    # for score, count in sorted(cheats.items(), key=lambda x: x[0] * 1000 - x[1]):
+    #     print(f"- There are {count} cheats that save {score} picoseconds.")
+
+    cheat_count = sum(cheats.values())
+
+    print(cheat_count)
 
 
 def find_cheats(
@@ -91,28 +93,26 @@ def find_cheats(
     return cheats
 
 
-def part1():
-    print("part1")
+def get_distances(cells: set[tuple[int, int]], start: tuple[int, int]):
+    queue: deque[tuple[int, tuple[int, int]]] = deque()
+    queue.append((0, start))
 
-    cells, start, end = parse_input(input)
+    distances: dict[tuple[int, int], int] = {}
 
-    cheats = find_cheats(cells, start, end)
+    while queue:
+        distance, cell = queue.popleft()
 
-    cheat_count = sum(cheats.values())
+        if cell in distances:
+            continue
 
-    print(cheat_count)
+        distances[cell] = distance
 
+        for direction in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+            neighbor = (cell[0] + direction[0], cell[1] + direction[1])
 
-def part2():
-    print("part2")
+            if neighbor not in cells:
+                continue
 
-    cells, start, end = parse_input(input)
+            queue.append((distance + 1, neighbor))
 
-    cheats = find_cheats(cells, start, end, 20, threshold=100)
-
-    # for score, count in sorted(cheats.items(), key=lambda x: x[0] * 1000 - x[1]):
-    #     print(f"- There are {count} cheats that save {score} picoseconds.")
-
-    cheat_count = sum(cheats.values())
-
-    print(cheat_count)
+    return distances
