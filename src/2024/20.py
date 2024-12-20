@@ -1,5 +1,6 @@
 from collections import deque
 from api import get_input
+from utils import griderator
 
 input = get_input(2024, 20)
 
@@ -67,28 +68,28 @@ def find_cheats(
     cheats: dict[int, int] = {}
 
     for cell, distance in distances_from_start.items():
-        for y in range(-max_duration, max_duration + 1):
-            for x in range(-max_duration, max_duration + 1):
-                duration = abs(x) + abs(y)
+        durange = range(-max_duration, max_duration + 1)
+        for x, y in griderator(durange, durange):
+            duration = abs(x) + abs(y)
 
-                if not 1 < duration <= max_duration:
-                    continue
+            if not 1 < duration <= max_duration:
+                continue
 
-                # print(f"checking {cell} with distance {distance} and direction {direction}")
+            # print(f"checking {cell} with distance {distance} and direction {direction}")
 
-                target = (cell[0] + x, cell[1] + y)
+            target = (cell[0] + x, cell[1] + y)
 
-                if target not in distances_from_end:
-                    continue
+            if target not in distances_from_end:
+                continue
 
-                target_score = distances_from_end[target]
+            target_score = distances_from_end[target]
 
-                saved_time = baseline - (target_score + distance + duration)
+            saved_time = baseline - (target_score + distance + duration)
 
-                if saved_time >= threshold:
-                    cheats[saved_time] = cheats.get(saved_time, 0) + 1
+            if saved_time >= threshold:
+                cheats[saved_time] = cheats.get(saved_time, 0) + 1
 
-                    # print(f"found cheat that saves {saved_time} picoseconds")
+                # print(f"found cheat that saves {saved_time} picoseconds")
 
     return cheats
 
