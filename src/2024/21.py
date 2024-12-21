@@ -1,4 +1,4 @@
-from functools import cache, lru_cache
+from functools import cache
 from itertools import permutations
 import math
 from api import get_input
