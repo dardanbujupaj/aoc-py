@@ -39,14 +39,14 @@ def part2():
 
     sequences: tuple[int, int, int, int] = set()
 
-    price_maps: list[dict[tuple[int, int, int, int], int]] = []
+    price_map: dict[tuple[int, int, int, int], int] = {}
 
     for seed in seeds:
         secret = seed
 
         changes = []
 
-        possible_prices: dict[tuple[int, int, int, int], int] = {}
+        seen_sequences: set[tuple[int, int, int, int]] = set()
 
         for _ in range(2000):
             new_secret = get_next_secret(secret)
@@ -54,17 +54,17 @@ def part2():
             change = new_secret % 10 - secret % 10
             changes.append(change)
 
-            if tuple(changes[-4:]) not in possible_prices:
+            sequence = tuple(changes[-4:])
+
+            if sequence not in seen_sequences:
                 sequences.add(tuple(changes[-4:]))
-                possible_prices[tuple(changes[-4:])] = new_secret % 10
+                price_map[sequence] =  price_map.get(sequence, 0) + (new_secret % 10)
 
             secret = new_secret
-        
-        price_maps.append(possible_prices)
 
     print(f"{len(sequences)} sequences")
 
-    print(max(map(lambda seq: reduce(lambda previous, price_map: previous + price_map.get(seq, 0), price_maps, 0), sequences)))
+    print(max(price_map.values()))
 
 
 
