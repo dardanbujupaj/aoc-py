@@ -1,5 +1,3 @@
-
-from functools import reduce
 from api import get_input
 
 input = get_input(2024, 22)
@@ -7,12 +5,13 @@ input = get_input(2024, 22)
 # create bitmask for modulo 16777216
 mod_mask = (2 << 23) - 1
 
+
 def get_next_secret(seed: int) -> int:
     secret = seed
 
-    secret = (secret ^ (secret << 6)) & mod_mask # * 64
-    secret = (secret ^ (secret >> 5)) & mod_mask # // 32
-    secret = (secret ^ (secret << 11)) & mod_mask # * 2048
+    secret = (secret ^ (secret << 6)) & mod_mask  # * 64
+    secret = (secret ^ (secret >> 5)) & mod_mask  # // 32
+    secret = (secret ^ (secret << 11)) & mod_mask  # * 2048
 
     return secret
 
@@ -31,6 +30,7 @@ def part1():
         total += secret
 
     print(total)
+
 
 def part2():
     print("part2")
@@ -58,13 +58,10 @@ def part2():
 
             if sequence not in seen_sequences:
                 sequences.add(tuple(changes[-4:]))
-                price_map[sequence] =  price_map.get(sequence, 0) + (new_secret % 10)
+                price_map[sequence] = price_map.get(sequence, 0) + (new_secret % 10)
 
             secret = new_secret
 
     print(f"{len(sequences)} sequences")
 
     print(max(price_map.values()))
-
-
-
