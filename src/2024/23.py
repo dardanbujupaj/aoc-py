@@ -99,7 +99,9 @@ def find_cliques(
 
     cliques = []
 
-    for v in list(p):
+    pivot = next(iter(p | x))
+
+    for v in p - get_neighbors(links, pivot):
         neighbors = get_neighbors(links, v)
         cliques += find_cliques(links, r | {v}, p & neighbors, x & neighbors)
 
