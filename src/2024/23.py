@@ -3,45 +3,11 @@ from api import get_input
 
 input = get_input(2024, 23)
 
-example_input = """kh-tc
-qp-kh
-de-cg
-ka-co
-yn-aq
-qp-ub
-cg-tb
-vc-aq
-tb-ka
-wh-tc
-yn-cg
-kh-ub
-ta-co
-de-co
-tc-td
-tb-wq
-wh-td
-ta-ka
-td-qp
-aq-cg
-wq-ub
-ub-vc
-de-ta
-wq-aq
-wq-vc
-wh-yn
-ka-de
-kh-ta
-co-tc
-wh-qp
-tb-vc
-td-yn"""
-
 
 def get_neighbors(links: list[tuple[str, str]], from_node: str):
     connected: set[str] = set()
 
     for a, b in links:
-        # print(from_node, a, b)
         if a == from_node:
             connected.add(b)
         elif b == from_node:
