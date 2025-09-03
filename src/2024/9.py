@@ -3,9 +3,6 @@ from api import get_input
 input = get_input(2024, 9)
 
 
-example_input = "2333133121414131402"
-
-
 def parse_input(input: str):
     return [
         (int(size), index // 2 if index % 2 == 0 else None)

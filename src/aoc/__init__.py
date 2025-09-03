@@ -43,9 +43,9 @@ from api import get_input
 
 input = get_input({year}, {day})
 
-def part1():
+def part1() -> None:
     print("part1")
 
-def part2():
+def part2() -> None:
     print("part2")
 """

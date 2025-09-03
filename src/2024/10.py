@@ -3,15 +3,6 @@ from utils import grid_contains
 
 input = get_input(2024, 10)
 
-example_input = """89010123
-78121874
-87430965
-96549874
-45678903
-32019012
-01329801
-10456732"""
-
 
 def parse_input(input: str):
     return [[int(character) for character in line] for line in input.splitlines()]

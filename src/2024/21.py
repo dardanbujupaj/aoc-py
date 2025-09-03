@@ -5,12 +5,6 @@ from api import get_input
 
 input = get_input(2024, 21)
 
-example_input = """029A
-980A
-179A
-456A
-379A"""
-
 
 numeric_keypad = {
     "0": (1, 3),
@@ -60,7 +54,7 @@ def move_possible(
 
 
 @cache
-def get_keypad_input(output: str, level: int = 0, max_level: int = 2) -> str:
+def get_keypad_input(output: str, level: int = 0, max_level: int = 2) -> float:
     keypad = numeric_keypad if level == 0 else directional_keypad
 
     input_length = 0

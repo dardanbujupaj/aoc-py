@@ -7,26 +7,6 @@ from graphviz import Digraph
 
 input = get_input(2024, 24)
 
-example_input = """x00: 0
-x01: 1
-x02: 0
-x03: 1
-x04: 0
-x05: 1
-y00: 0
-y01: 0
-y02: 1
-y03: 1
-y04: 0
-y05: 1
-
-x00 AND y00 -> z00
-x01 AND y01 -> z01
-x02 AND y02 -> z02
-x03 AND y03 -> z03
-x04 AND y04 -> z04
-x05 AND y05 -> z05"""
-
 
 def parse_input(input: str):
     inputs_str, gates_str = input.split("\n\n")
@@ -73,7 +53,7 @@ def simulate_gates(inputs, gates):
 def part1():
     print("part1")
 
-    inputs, gates = parse_input(example_input)
+    inputs, gates = parse_input(input)
     state = simulate_gates(inputs, gates)
 
     value = 0

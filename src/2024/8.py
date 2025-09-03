@@ -1,21 +1,9 @@
 import math
 from api import get_input
 from utils import grid_contains
+from typing import Dict
 
 input = get_input(2024, 8)
-
-example_input = """......#....#
-...#....0...
-....#0....#.
-..#....0....
-....0....#..
-.#....A.....
-...#........
-#......#....
-........A...
-.........A..
-..........#.
-..........#.""".replace("#", ".")
 
 
 def parse_input(input: str):
@@ -24,7 +12,7 @@ def parse_input(input: str):
 
 def part1():
     grid = parse_input(input)
-    antenna_groups: map[str, list[(int, int)]] = {}
+    antenna_groups: Dict[str, list[tuple[int, int]]] = {}
 
     for y, row in enumerate(grid):
         for x, frequency in enumerate(row):
@@ -34,7 +22,7 @@ def part1():
 
                 antenna_groups[frequency].append((x, y))
 
-    antinodes: set[(int, int)] = set()
+    antinodes: set[tuple[int, int]] = set()
 
     for frequency, antennas in antenna_groups.items():
         for index, antenna in enumerate(antennas):
@@ -54,7 +42,7 @@ def part1():
 
 def part2():
     grid = parse_input(input)
-    antenna_groups: map[str, list[(int, int)]] = {}
+    antenna_groups: Dict[str, list[tuple[int, int]]] = {}
 
     for y, row in enumerate(grid):
         for x, frequency in enumerate(row):
@@ -64,7 +52,7 @@ def part2():
 
                 antenna_groups[frequency].append((x, y))
 
-    antinodes: set[(int, int)] = set()
+    antinodes: set[tuple[int, int]] = set()
 
     for frequency, antennas in antenna_groups.items():
         for index, antenna in enumerate(antennas):

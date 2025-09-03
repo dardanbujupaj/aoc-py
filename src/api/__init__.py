@@ -17,9 +17,14 @@ def get_input(year, day) -> str:
     if file.exists():
         return file.read_text()
     else:
+        aoc_token = os.getenv("AOC_TOKEN")
+
+        if not aoc_token:
+            raise ValueError("AOC_TOKEN environment variable is not set")
+
         with requests.get(
             f"{BASE_URL}/{year}/day/{day}/input",
-            cookies={"session": os.getenv("AOC_TOKEN")},
+            cookies={"session": aoc_token},
         ) as response:
             if not response.ok:
                 raise Exception(response.text)

@@ -7,21 +7,6 @@ from api import get_input
 
 input = get_input(2024, 13)
 
-example_input = """Button A: X+94, Y+34
-Button B: X+22, Y+67
-Prize: X=8400, Y=5400
-
-Button A: X+26, Y+66
-Button B: X+67, Y+21
-Prize: X=12748, Y=12176
-
-Button A: X+17, Y+86
-Button B: X+84, Y+37
-Prize: X=7870, Y=6450
-
-Button A: X+69, Y+23
-Button B: X+27, Y+71
-Prize: X=18641, Y=10279"""
 
 pattern = ".*?(\\d+).*?(\\d+)"
 
@@ -37,11 +22,25 @@ def parse_input(input: str):
     return list(map(parse_config, input.split("\n\n")))
 
 
+def parse_line(line: str) -> tuple[int, int]:
+    match = re.match(pattern, line)
+
+    if not match:
+        raise Exception(f"invalid line: {line}")
+
+    groups = match.groups()
+    left = int(groups[0])
+    right = int(groups[1])
+    return (left, right)
+
+
 def parse_config(config: str):
     lines = config.splitlines()
-    button_a = tuple(map(int, re.match(pattern, lines[0]).groups()))
-    button_b = tuple(map(int, re.match(pattern, lines[1]).groups()))
-    prize = tuple(map(int, re.match(pattern, lines[2]).groups()))
+
+    button_a = parse_line(lines[0])
+    button_b = parse_line(lines[1])
+    prize = parse_line(lines[2])
+
     return Configuration(button_a, button_b, prize)
 
 
