@@ -12,6 +12,7 @@ dependencies = [
   "requests>=2.32",
   "ruff>=0.12",
   "graphviz>=0.21",
+  "pytest>=9.0.1",
 ]
 
 [project.scripts]
