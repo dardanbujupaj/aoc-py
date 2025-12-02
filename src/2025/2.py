@@ -4,8 +4,6 @@ from api import get_input
 
 input = get_input(2025, 2)
 
-# input = "11-22,95-115,998-1012,1188511880-1188511890,222220-222224,1698522-1698528,446443-446449,38593856-38593862,565653-565659,824824821-824824827,2121212118-2121212124"
-
 Range = tuple[int, int]
 
 ranges: list[Range] = [
@@ -13,7 +11,7 @@ ranges: list[Range] = [
 ]
 
 
-def invalid_ids(id_range: Range) -> list[int]:
+def invalid_ids(id_range: Range, split=2) -> list[int]:
     invalid_ids = []
     (start, end) = id_range
 
@@ -21,15 +19,17 @@ def invalid_ids(id_range: Range) -> list[int]:
 
     start_str = str(start)
 
-    if len(start_str) % 2 == 0:
-        base = int(start_str[0 : len(start_str) // 2])
+    if len(start_str) % split == 0:
+        base = int(start_str[0 : len(start_str) // split])
     else:
-        base = pow(10, int(len(start_str) / 2))
+        base = pow(10, int(len(start_str) / split))
 
-    for i in range(base, ceil(end / pow(10, len(str(end)) // 2))):
-        id = i + i * pow(10, len(str(i)))
+    for i in range(base, ceil(end / pow(10, len(str(end)) // split))):
+        id = 0
+        for n in range(split):
+            id += i * pow(10, len(str(i)) * n)
 
-        if (id < start):
+        if id < start:
             pass
         elif id > end:
             break
@@ -51,3 +51,11 @@ def part1() -> None:
 
 def part2() -> None:
     print("part2")
+
+    ids: set[int] = set()
+    for r in ranges:
+        _, end = r
+        for i in range(2, len(str(end)) + 1):
+            ids.update(invalid_ids(r, i))
+
+    print(sum(ids))

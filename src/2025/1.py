@@ -4,6 +4,7 @@ input = get_input(2025, 1)
 
 parsed = [-int(x[1:]) if x[:1] == "L" else int(x[1:]) for x in input.splitlines()]
 
+
 def part1() -> None:
     print("part1")
 

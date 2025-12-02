@@ -137,7 +137,7 @@ def part2():
 
     else:
         flattened_switches = reduce(lambda a, b: a + list(b), switches, list())
-        print(f"Result\n{",".join(sorted(flattened_switches))}")
+        print(f"Result\n{','.join(sorted(flattened_switches))}")
         return
 
     # print operations graph to manually spot wrong connections
