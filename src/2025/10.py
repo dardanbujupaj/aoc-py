@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
+import cvxpy as cp
 import numpy as np
-from scipy.optimize import LinearConstraint, milp
 
 from api import get_input
 
@@ -69,36 +69,34 @@ def part1() -> None:
     print(total_presses)
 
 
-def is_int(n):
-    return abs(n - round(n)) < 0.1
-
-
 def part2() -> None:
     print("part2")
 
     total_presses = 0
 
     for configuration in configurations:
-        wirings = []
-        for w in configuration.wirings:
-            wiring = [0] * len(configuration.requirements)
-            for i in range(len(wiring)):
-                if w & (1 << i):
-                    wiring[i] = 1
-            wirings.append(tuple(wiring))
+        wirings = np.array(
+            [
+                w >> np.arange(len(configuration.requirements)) & 1
+                for w in configuration.wirings
+            ]
+        ).T
+        requirements = np.array(configuration.requirements)
 
+        x = cp.Variable(wirings.shape[1], integer=True)
+        obj = cp.Minimize(cp.sum(x))
         constraints = [
-            LinearConstraint(
-                np.array(wirings).T,
-                lb=np.array(configuration.requirements),  # pyright: ignore[reportArgumentType]
-                ub=np.array(configuration.requirements),  # pyright: ignore[reportArgumentType]
-            )
+            wirings @ x == requirements,
+            x >= 0,
         ]
-        integrality = np.ones(len(wirings), dtype=int)
-        r = milp(
-            c=np.ones(len(wirings)), constraints=constraints, integrality=integrality
-        )
 
-        total_presses += round(sum(r.x))
+        problem = cp.Problem(obj, constraints)
+        problem.solve()
+
+        if problem.status != cp.OPTIMAL:
+            print("No solution found")
+            continue
+
+        total_presses += round(problem.value)  # pyright: ignore[reportArgumentType]
 
     print(total_presses)
